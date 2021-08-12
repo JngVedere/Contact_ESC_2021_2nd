@@ -29,7 +29,7 @@ import java.util.LinkedHashSet;
 public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Contact> datalist = new ArrayList<>();
-    private ArrayList<Contact> filteredList;
+    private ArrayList<Contact> filteredList = new ArrayList<>();
     private RecyclerView recyclerView;
     private Adapter adapter;
     private EditText search;

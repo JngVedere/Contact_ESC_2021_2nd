@@ -57,7 +57,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.Holder> {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle("전화를 걸지, 문자를 보낼지 선택해 주십시오.");
-                builder.setMessage("고르거라!!");
+                builder.setMessage("골라주세요");
                 builder.setNeutralButton("전화걸기", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -71,12 +71,17 @@ public class Adapter extends RecyclerView.Adapter<Adapter.Holder> {
                 builder.setPositiveButton("문자 보내기", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                         Uri smsUri = Uri.parse("tel:" + contact.getPhoneNumber());
-                         Intent intent = new Intent(Intent.ACTION_VIEW, smsUri);
-                         intent.putExtra("address",contact.getPhoneNumber());
-                         intent.putExtra("sms_body","");
-                         intent.setType("vnd.android-dir/mms-sms");
-                        context.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+
+                        Intent intent = new Intent(Intent.ACTION_SENDTO);
+                        intent.setData(Uri.parse("smsto:" + Uri.encode(contact.getPhoneNumber())));
+                        context.startActivity(intent);
+
+                        /*Uri smsUri = Uri.parse("tel:" + contact.getPhoneNumber());
+                        Intent intent = new Intent(Intent.ACTION_VIEW, smsUri);
+                        intent.putExtra("address", contact.getPhoneNumber());
+                        intent.putExtra("sms_body","");
+                        intent.setType("vnd.android-dir/mms-sms");
+                        context.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));*/
                     }
                 });
                 builder.create().show();
